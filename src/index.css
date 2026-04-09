@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  html,
+  body,
+  #root {
+    min-height: 100%;
+  }
+
+  body {
+    @apply m-0 font-sans antialiased text-gray-600 bg-white;
+  }
+}
+
+@layer utilities {
+  @keyframes target-marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .target-marquee {
+    animation: target-marquee 42s linear infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .target-marquee,
+  .animate-pulse-scale {
+    animation: none !important;
+  }
+}

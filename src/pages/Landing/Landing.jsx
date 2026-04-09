@@ -1,0 +1,442 @@
+import { useEffect, useState } from 'react'
+import heroGif from '../../assets/hero.gif'
+
+
+const benefitSections = {
+  discountCentre: {
+    label: 'Discount Centre',
+    chip: 'Discount Centre Benefits',
+    partnerTitle: 'Grow your store network with high-intent local demand',
+    summary:
+      'A practical ecosystem for merchants to attract, convert, and retain nearby customers with structured promotional campaigns.',
+    points: [
+      'Increase and maximize buyer and potential customer flow.',
+      'Build stronger customer loyalty with recurring store visits.',
+      'Improve sales velocity through localized discount campaigns.',
+      'Create additional financial income channels for merchants.',
+      'Strengthen your brand visibility in high-intent audiences.',
+    ],
+    outcomes: ['Increase customers', 'Increase sales', 'Increase income'],
+    kpis: [
+      { label: 'Avg buyer uplift', value: '+28%' },
+      { label: 'Repeat visits', value: '2.3x' },
+      { label: 'Campaign ROI', value: '+41%' },
+    ],
+    primaryCta: 'Read More',
+    secondaryCta: 'Apply Now',
+    registerCta: 'Register Now',
+  },
+  discountCard: {
+    label: 'Discount Card',
+    chip: 'Discount Card Benefits',
+    partnerTitle: 'Launch card programs that customers actually keep using',
+    summary:
+      'Design loyalty cards with clear savings, repeat value, and partner utility so customers stay engaged over time.',
+    points: [
+      'Offer member-exclusive rewards that feel immediately valuable.',
+      'Drive repeat purchases with tiered rewards and cashback.',
+      'Use card analytics to personalize campaigns and offers.',
+      'Reduce churn with renewal incentives and milestone perks.',
+      'Enable seamless partnerships with partner merchants.',
+    ],
+    outcomes: ['Higher retention', 'More transactions', 'Smarter campaigns'],
+    kpis: [
+      { label: 'Retention rate', value: '+34%' },
+      { label: 'Card usage', value: '3.1x' },
+      { label: 'Offer redemption', value: '+52%' },
+    ],
+    primaryCta: 'Read Features',
+    secondaryCta: 'Apply Now',
+    registerCta: 'Get Started',
+  },
+  jobCandidate: {
+    label: 'Job Candidate',
+    chip: 'Job Candidate Benefits',
+    partnerTitle: 'Connect opportunities with the right talent faster',
+    summary:
+      'Modern candidate workflows for employers and applicants with faster screening, stronger fit, and reduced hiring costs.',
+    points: [
+      'Get role-matched candidate recommendations instantly.',
+      'Track candidate progress from application to onboarding.',
+      'Promote vacancies to high-intent local talent pools.',
+      'Improve placement quality with profile-based screening.',
+      'Build sustainable hiring pipelines with lower acquisition cost.',
+    ],
+    outcomes: ['Faster hiring', 'Better matches', 'Lower hiring cost'],
+    kpis: [
+      { label: 'Time to hire', value: '-37%' },
+      { label: 'Match quality', value: '+29%' },
+      { label: 'Cost per hire', value: '-21%' },
+    ],
+    primaryCta: 'Read More',
+    secondaryCta: 'Post Job',
+    registerCta: 'Register Employer',
+  },
+}
+
+const targetMetrics = [
+  '1.26+ Million Company',
+  '36+ Million Small Businesses',
+  '100+ Million Individual Business',
+  '472+ Million Labors',
+  '100+ Million Job and Income Seekers',
+  '1.39+ Billion Support Ecosystem',
+]
+
+const loopingTargetMetrics = [...targetMetrics, ...targetMetrics]
+
+const audienceCards = [
+  {
+    key: 'buyers',
+    title: 'Buyers',
+    highlight: 'Discounts up to 1,20,000+ / year',
+    tone: 'from-orange-100/70 via-white to-white',
+    badge: 'B',
+    icon: 'SHOP',
+    metric: '120k+ yearly savings',
+  },
+  {
+    key: 'sellers',
+    title: 'Sellers',
+    highlight: 'More customers and sales',
+    tone: 'from-emerald-100/70 via-white to-white',
+    badge: 'S',
+    icon: 'GROW',
+    metric: '2.3x repeat traffic',
+  },
+  {
+    key: 'jobseekers',
+    title: 'Job Seekers',
+    highlight: 'Permanent high income',
+    tone: 'from-sky-500/20 via-sky-100/50 to-white',
+    badge: 'J',
+    icon: 'CAREER',
+    metric: 'Faster role matching',
+  },
+]
+
+function Landing() {
+  const [activeSection, setActiveSection] = useState('discountCentre')
+  const [showAllPoints, setShowAllPoints] = useState(false)
+  const [loadHeroGif, setLoadHeroGif] = useState(false)
+  const [isMobileViewport, setIsMobileViewport] = useState(false)
+  const activeData = benefitSections[activeSection]
+  const visiblePoints = showAllPoints ? activeData.points : activeData.points.slice(0, 3)
+
+  useEffect(() => {
+    setShowAllPoints(false)
+  }, [activeSection])
+
+  useEffect(() => {
+    const mobileQuery = window.matchMedia('(max-width: 767px)')
+
+    const updateViewportState = () => {
+      setIsMobileViewport(mobileQuery.matches)
+    }
+
+    updateViewportState()
+
+    if (typeof mobileQuery.addEventListener === 'function') {
+      mobileQuery.addEventListener('change', updateViewportState)
+      return () => mobileQuery.removeEventListener('change', updateViewportState)
+    }
+
+    mobileQuery.addListener(updateViewportState)
+    return () => mobileQuery.removeListener(updateViewportState)
+  }, [])
+
+  useEffect(() => {
+    if (isMobileViewport) {
+      setLoadHeroGif(false)
+      return
+    }
+
+    const gifTimer = window.setTimeout(() => {
+      setLoadHeroGif(true)
+    }, 1400)
+
+    return () => window.clearTimeout(gifTimer)
+  }, [isMobileViewport])
+
+  return (
+    <>
+      <section className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-5 sm:gap-8 md:gap-14 px-4 sm:px-6 md:px-10 pb-10 sm:pb-16 pt-7 sm:pt-12 md:pb-20 md:pt-16 lg:grid-cols-2">
+        <div className="flex max-w-3xl flex-col gap-4 sm:gap-6">
+          <div className="inline-block w-fit rounded-full border border-emerald-200 bg-emerald-600 px-3 sm:px-4 py-1.5 sm:py-2 text-xs font-semibold tracking-wider text-white">
+            ✓ TRUSTED BY 500+ GLOBAL ENTERPRISES
+          </div>
+          <h1 className="text-2xl sm:text-4xl md:text-4xl lg:text-5xl font-bold leading-tight text-dark-blue">
+            Empowering <span className="text-orange">Businesses,</span> Rewarding <span className="italic">Customers.</span>
+          </h1>
+          <p className="max-w-md text-sm sm:text-base leading-relaxed text-gray-600">
+            The ultimate ecosystem where architectural precision meets curated trade opportunities. Drive growth, minimize costs, and maximize loyalty.
+          </p>
+          <div className="mt-2 flex flex-col sm:flex-row gap-2.5 sm:gap-3">
+            <button className="w-full sm:w-auto rounded-lg bg-dark-blue px-6 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold text-white transition hover:bg-navy-blue">Join ServeSmile</button>
+            <button className="w-full sm:w-auto rounded-lg border border-emerald-200 bg-emerald-50 px-6 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold text-emerald-700 transition hover:bg-emerald-100">Watch Vision Film</button>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-center md:justify-end mt-6 sm:mt-0">
+          {loadHeroGif ? (
+            <img
+              src={heroGif}
+              alt="ServeSmile hero"
+              width="640"
+              height="640"
+              loading="lazy"
+              decoding="async"
+              fetchPriority="low"
+              className="h-48 sm:h-56 md:h-64 lg:h-72 w-auto object-contain"
+            />
+          ) : (
+            <div className="flex h-48 w-full max-w-[18rem] sm:h-56 md:h-64 lg:h-72 items-center justify-center rounded-2xl border border-slate-200 bg-gradient-to-br from-slate-100 via-white to-orange-50 px-6 text-center">
+              <div>
+                <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500">ServeSmile</p>
+                <p className="mt-1 text-sm font-semibold text-slate-700">Fast experience mode</p>
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 md:px-10 pb-9 sm:pb-12 lg:pb-16">
+        <div className="mb-5 sm:mb-8 rounded-2xl border border-slate-200 bg-white p-2 sm:p-3 md:p-4 shadow-[0_10px_30px_rgba(15,23,42,0.08)]">
+          <div className="flex flex-col gap-2 sm:gap-3 md:flex-row md:items-center">
+            <div className="shrink-0 rounded-xl bg-slate-50 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm md:text-base font-semibold text-slate-700 border border-slate-200">
+              Our Target
+            </div>
+
+            <div className="w-full overflow-x-auto">
+              <div className="w-full overflow-hidden rounded-xl bg-slate-800">
+                <div className="target-marquee inline-flex w-max items-center gap-2 sm:gap-4 px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-medium text-slate-100 will-change-transform motion-reduce:animate-none">
+                  {loopingTargetMetrics.map((metric, index) => (
+                    <span key={`${metric}-${index}`} className="whitespace-nowrap">
+                      {metric}
+                      <span className="mx-4 text-slate-400">.</span>
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="-mx-1 mt-2 flex snap-x snap-mandatory gap-2 overflow-x-auto px-1 pb-1 md:mx-0 md:grid md:grid-cols-3 md:gap-2 md:overflow-visible md:px-0 md:pb-0">
+            {audienceCards.map((card) => (
+              <article
+                key={card.key}
+                className={`group relative min-w-[240px] snap-start overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-br ${card.tone} p-3 sm:p-4 md:min-w-0 md:p-4 transition duration-300 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-md`}
+              >
+                <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-white/50 blur-2xl transition group-hover:scale-125" />
+
+                <div className="relative">
+                  <div className="mb-3 flex items-center justify-between">
+                    <span className="inline-flex items-center rounded-full border border-slate-300/70 bg-white/70 px-2.5 py-1 text-[10px] font-semibold tracking-[0.16em] text-slate-600">
+                      {card.icon}
+                    </span>
+
+                    <div className="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-slate-900 text-xs font-bold text-white shadow-sm">
+                      {card.badge}
+                    </div>
+                  </div>
+
+                  <h3 className="text-sm font-semibold uppercase tracking-[0.12em] text-slate-700">{card.title}</h3>
+                  <p className="mt-1.5 text-sm sm:text-base font-semibold leading-snug text-slate-900">{card.highlight}</p>
+
+                  <div className="mt-3 flex items-center justify-between border-t border-slate-200/70 pt-2.5">
+                    <p className="text-[11px] sm:text-xs font-medium text-slate-600">{card.metric}</p>
+                    <span className="text-sm font-semibold text-slate-400 transition group-hover:translate-x-0.5 group-hover:text-slate-600">
+                      {'>'}
+                    </span>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        <div className="mb-4 sm:mb-5 text-center">
+          <span className="inline-flex items-center rounded-full border border-slate-200 bg-white px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500 shadow-sm">
+            Featured Benefits
+          </span>
+          <h2 className="mt-2 text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-slate-800">
+            ServeSmile Projects <span className="text-orange">Benefits</span>
+          </h2>
+          <p className="mt-1.5 sm:mt-2 text-xs sm:text-sm md:text-base text-slate-500">Save More - Grow More - Get More Income</p>
+        </div>
+
+        <div className="-mx-1 flex gap-2 overflow-x-auto rounded-xl border border-slate-200 bg-white/90 p-1.5 px-1 pb-1 md:mx-0 md:grid md:grid-cols-3 md:gap-2 md:overflow-visible md:px-1.5 md:pb-1.5">
+          {Object.entries(benefitSections).map(([key, section]) => {
+            const isActive = activeSection === key
+
+            return (
+              <button
+                key={key}
+                type="button"
+                onClick={() => setActiveSection(key)}
+                className={`min-w-[152px] whitespace-nowrap rounded-lg border px-3 py-2 text-center text-xs sm:text-xs md:min-w-0 md:text-sm font-semibold tracking-normal transition ${
+                  isActive
+                    ? 'border-slate-900 bg-slate-900 text-white shadow-[0_6px_16px_rgba(15,23,42,0.28)]'
+                    : 'border-transparent bg-white text-slate-600 hover:border-slate-200 hover:bg-slate-50'
+                }`}
+              >
+                {section.label}
+              </button>
+            )
+          })}
+        </div>
+
+        <div className="mt-3 sm:mt-4 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_12px_30px_rgba(15,23,42,0.08)]">
+          <div className="grid gap-0 grid-cols-1 md:grid-cols-[1.15fr_0.85fr]">
+            <div className="p-3 sm:p-4 md:p-6 bg-white">
+              <div className="inline-flex rounded-lg border border-emerald-200 bg-emerald-50 px-2.5 py-0.5 sm:px-3 sm:py-1 text-xs font-semibold tracking-wide text-emerald-700">
+                {activeData.chip}
+              </div>
+
+              <h3 className="mt-2 sm:mt-3 text-base sm:text-lg md:text-xl font-semibold leading-snug text-slate-900">
+                {activeData.partnerTitle}
+              </h3>
+
+              <p className="mt-1.5 sm:mt-2 text-xs sm:text-sm md:text-[15px] leading-5 sm:leading-6 text-slate-600">
+                {activeData.summary}
+              </p>
+
+              <div className="mt-3 sm:mt-4 grid gap-2 sm:gap-2.5 grid-cols-1 md:grid-cols-2">
+                {visiblePoints.map((point, index) => (
+                  <div key={point} className="group relative rounded-xl border border-slate-200 bg-white p-2.5 sm:p-3 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-md cursor-default">
+                    <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-slate-50 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                    <div className="relative flex items-start gap-2 sm:gap-3">
+                      <div className="inline-flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-lg bg-slate-900 text-xs font-bold text-white flex-shrink-0 group-hover:bg-orange transition-colors duration-300">
+                        {index + 1}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs sm:text-sm md:text-sm font-medium text-slate-800 leading-4 sm:leading-5 group-hover:text-dark-blue transition-colors">{point}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {activeData.points.length > 3 ? (
+                <button
+                  type="button"
+                  onClick={() => setShowAllPoints((prev) => !prev)}
+                  className="mt-2 inline-flex items-center rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs font-semibold text-slate-700 transition hover:bg-slate-100"
+                >
+                  {showAllPoints ? 'Show less' : `Show all ${activeData.points.length} benefits`}
+                </button>
+              ) : null}
+
+              <div className="mt-3 sm:mt-3 flex flex-col sm:flex-row flex-wrap gap-1.5 sm:gap-2">
+                <button className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 sm:py-2 text-xs font-semibold text-slate-700 transition hover:bg-slate-50">
+                  {activeData.primaryCta}
+                </button>
+                <button className="rounded-lg bg-dark-blue px-3 py-1.5 sm:py-2 text-xs font-semibold text-white transition hover:bg-navy-blue">
+                  {activeData.secondaryCta}
+                </button>
+              </div>
+            </div>
+
+            <div className="border-t border-slate-200 bg-slate-900 p-3 sm:p-4 text-white md:border-l md:border-t-0 md:p-6">
+              <h4 className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-300">Key Outcomes</h4>
+
+              <ul className="mt-2 sm:mt-3 space-y-1 sm:space-y-1.5 text-xs sm:text-sm text-slate-100">
+                {activeData.outcomes.map((outcome) => (
+                  <li key={outcome} className="flex items-center gap-1.5">
+                    <span className="h-1 w-1 sm:h-1.5 sm:w-1.5 rounded-full bg-emerald-400 flex-shrink-0" />
+                    {outcome}
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mt-2.5 sm:mt-3 space-y-1 sm:space-y-1.5">
+                {activeData.kpis.map((kpi) => (
+                  <div key={kpi.label} className="flex items-center justify-between rounded-lg border border-white/10 bg-white/10 px-2 sm:px-2.5 py-1 sm:py-1.5 backdrop-blur-[1px]">
+                    <span className="text-xs text-slate-300">{kpi.label}</span>
+                    <span className="text-xs sm:text-sm font-semibold text-white">{kpi.value}</span>
+                  </div>
+                ))}
+              </div>
+
+              <button className="mt-3 sm:mt-3 w-full rounded-lg bg-orange px-3 py-1.5 sm:py-2 text-xs font-semibold text-white transition hover:bg-[#b6691f]">
+                {activeData.registerCta}
+              </button>
+              <p className="mt-1 text-center text-[11px] text-slate-300">No setup fee. Start in minutes.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer className="border-t border-slate-200 bg-slate-50">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-10 py-8 sm:py-10">
+          <div className="overflow-hidden rounded-[2rem] bg-gradient-to-r from-slate-900 via-[#102a42] to-[#16384c] px-5 py-9 sm:px-10 sm:py-12 text-center text-white shadow-[0_16px_30px_rgba(15,23,42,0.2)]">
+            <div className="pointer-events-none mx-auto mb-3 h-1 w-20 rounded-full bg-gradient-to-r from-emerald-400 to-orange" />
+            <h2 className="mx-auto max-w-2xl text-2xl sm:text-4xl font-bold leading-tight">
+              Ready to curate your professional future?
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-sm sm:text-xl text-slate-300">
+              Join thousands of businesses and professionals already benefiting from the ServeSmile ecosystem.
+            </p>
+
+            <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:mt-8 sm:flex-row sm:gap-4">
+              <button className="w-full max-w-[320px] rounded-lg bg-orange px-6 py-3 text-sm sm:text-base font-semibold text-white transition hover:bg-[#a85f13]">
+                Create Business Account
+              </button>
+              <button className="w-full max-w-[320px] rounded-lg border border-emerald-300/40 bg-transparent px-6 py-3 text-sm sm:text-base font-semibold text-emerald-100 transition hover:bg-emerald-500/10">
+                Contact Our Team
+              </button>
+            </div>
+          </div>
+
+          <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            <div>
+              <h3 className="text-xl font-semibold text-slate-900">ServeSmile</h3>
+              <p className="mt-3 max-w-[230px] text-sm leading-6 text-slate-500">
+                The premier architectural trade curation platform.
+              </p>
+            </div>
+
+            <div>
+              <h4 className="text-lg font-semibold text-slate-900">Company Info</h4>
+              <ul className="mt-3 space-y-2 text-sm text-slate-500">
+                <li><a href="#about" className="transition hover:text-emerald-700">About Us</a></li>
+                <li><a href="#vision" className="transition hover:text-emerald-700">Our Vision</a></li>
+                <li><a href="#leadership" className="transition hover:text-emerald-700">Leadership</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-lg font-semibold text-slate-900">Quick Links</h4>
+              <ul className="mt-3 space-y-2 text-sm text-slate-500">
+                <li><a href="#discount-centre" className="transition hover:text-orange">Discount Centre</a></li>
+                <li><a href="#career" className="transition hover:text-orange">Career Portal</a></li>
+                <li><a href="#trade" className="transition hover:text-orange">Global Trade Hub</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-lg font-semibold text-slate-900">Contact Us</h4>
+              <a href="mailto:support@servesmile.com" className="mt-3 inline-block text-sm text-slate-500 transition hover:text-emerald-700">
+                support@servesmile.com
+              </a>
+              <div className="mt-4 flex gap-2">
+                <button className="h-9 w-9 rounded-full border border-slate-300 text-xs font-semibold text-slate-500 transition hover:border-emerald-300 hover:text-emerald-700">in</button>
+                <button className="h-9 w-9 rounded-full border border-slate-300 text-xs font-semibold text-slate-500 transition hover:border-orange/50 hover:text-orange">x</button>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8 flex flex-col gap-3 border-t border-slate-200 pt-5 text-xs sm:flex-row sm:items-center sm:justify-between text-slate-400">
+            <p>Copyright 2026 ServeSmile. All rights reserved.</p>
+            <div className="flex gap-4 sm:gap-6">
+              <a href="#privacy" className="transition hover:text-slate-600">Privacy Policy</a>
+              <a href="#terms" className="transition hover:text-slate-600">Terms of Service</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </>
+  )
+}
+
+export default Landing
