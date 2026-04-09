@@ -85,41 +85,9 @@ const targetMetrics = [
 
 const loopingTargetMetrics = [...targetMetrics, ...targetMetrics]
 
-const audienceCards = [
-  {
-    key: 'buyers',
-    title: 'Buyers',
-    highlight: 'Discounts up to 1,20,000+ / year',
-    tone: 'from-orange-100/70 via-white to-white',
-    badge: 'B',
-    icon: 'SHOP',
-    metric: '120k+ yearly savings',
-  },
-  {
-    key: 'sellers',
-    title: 'Sellers',
-    highlight: 'More customers and sales',
-    tone: 'from-emerald-100/70 via-white to-white',
-    badge: 'S',
-    icon: 'GROW',
-    metric: '2.3x repeat traffic',
-  },
-  {
-    key: 'jobseekers',
-    title: 'Job Seekers',
-    highlight: 'Permanent high income',
-    tone: 'from-sky-500/20 via-sky-100/50 to-white',
-    badge: 'J',
-    icon: 'CAREER',
-    metric: 'Faster role matching',
-  },
-]
-
 function Landing() {
   const [activeSection, setActiveSection] = useState('discountCentre')
   const [showAllPoints, setShowAllPoints] = useState(false)
-  const [loadHeroGif, setLoadHeroGif] = useState(false)
-  const [isMobileViewport, setIsMobileViewport] = useState(false)
   const activeData = benefitSections[activeSection]
   const visiblePoints = showAllPoints ? activeData.points : activeData.points.slice(0, 3)
 
@@ -127,41 +95,10 @@ function Landing() {
     setShowAllPoints(false)
   }, [activeSection])
 
-  useEffect(() => {
-    const mobileQuery = window.matchMedia('(max-width: 767px)')
-
-    const updateViewportState = () => {
-      setIsMobileViewport(mobileQuery.matches)
-    }
-
-    updateViewportState()
-
-    if (typeof mobileQuery.addEventListener === 'function') {
-      mobileQuery.addEventListener('change', updateViewportState)
-      return () => mobileQuery.removeEventListener('change', updateViewportState)
-    }
-
-    mobileQuery.addListener(updateViewportState)
-    return () => mobileQuery.removeListener(updateViewportState)
-  }, [])
-
-  useEffect(() => {
-    if (isMobileViewport) {
-      setLoadHeroGif(false)
-      return
-    }
-
-    const gifTimer = window.setTimeout(() => {
-      setLoadHeroGif(true)
-    }, 1400)
-
-    return () => window.clearTimeout(gifTimer)
-  }, [isMobileViewport])
-
   return (
     <>
-      <section className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-5 sm:gap-8 md:gap-14 px-4 sm:px-6 md:px-10 pb-10 sm:pb-16 pt-7 sm:pt-12 md:pb-20 md:pt-16 lg:grid-cols-2">
-        <div className="flex max-w-3xl flex-col gap-4 sm:gap-6">
+      <section className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-6 sm:gap-8 md:gap-14 px-4 sm:px-6 md:px-10 pb-10 sm:pb-16 pt-7 sm:pt-12 md:pb-20 md:pt-16 lg:grid-cols-2">
+        <div className="flex max-w-3xl flex-col items-center gap-4 text-center sm:gap-6 md:items-start md:text-left">
           <div className="inline-block w-fit rounded-full border border-emerald-200 bg-emerald-600 px-3 sm:px-4 py-1.5 sm:py-2 text-xs font-semibold tracking-wider text-white">
             ✓ TRUSTED BY 500+ GLOBAL ENTERPRISES
           </div>
@@ -171,37 +108,28 @@ function Landing() {
           <p className="max-w-md text-sm sm:text-base leading-relaxed text-gray-600">
             The ultimate ecosystem where architectural precision meets curated trade opportunities. Drive growth, minimize costs, and maximize loyalty.
           </p>
-          <div className="mt-2 flex flex-col sm:flex-row gap-2.5 sm:gap-3">
+          <div className="mt-2 flex w-full flex-col gap-2.5 sm:w-auto sm:flex-row sm:gap-3">
             <button className="w-full sm:w-auto rounded-lg bg-dark-blue px-6 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold text-white transition hover:bg-navy-blue">Join ServeSmile</button>
             <button className="w-full sm:w-auto rounded-lg border border-emerald-200 bg-emerald-50 px-6 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold text-emerald-700 transition hover:bg-emerald-100">Watch Vision Film</button>
           </div>
         </div>
 
-        <div className="flex items-center justify-center md:justify-end mt-6 sm:mt-0">
-          {loadHeroGif ? (
-            <img
-              src={heroGif}
-              alt="ServeSmile hero"
-              width="640"
-              height="640"
-              loading="lazy"
-              decoding="async"
-              fetchPriority="low"
-              className="h-48 sm:h-56 md:h-64 lg:h-72 w-auto object-contain"
-            />
-          ) : (
-            <div className="flex h-48 w-full max-w-[18rem] sm:h-56 md:h-64 lg:h-72 items-center justify-center rounded-2xl border border-slate-200 bg-gradient-to-br from-slate-100 via-white to-orange-50 px-6 text-center">
-              <div>
-                <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500">ServeSmile</p>
-                <p className="mt-1 text-sm font-semibold text-slate-700">Fast experience mode</p>
-              </div>
-            </div>
-          )}
+        <div className="mt-4 flex items-center justify-center md:mt-0 md:justify-end">
+          <img
+            src={heroGif}
+            alt="ServeSmile hero"
+            width="640"
+            height="640"
+            loading="lazy"
+            decoding="async"
+            fetchPriority="low"
+            className="h-48 sm:h-56 md:h-64 lg:h-72 w-auto object-contain"
+          />
         </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-4 sm:px-6 md:px-10 pb-9 sm:pb-12 lg:pb-16">
-        <div className="mb-5 sm:mb-8 rounded-2xl border border-slate-200 bg-white p-2 sm:p-3 md:p-4 shadow-[0_10px_30px_rgba(15,23,42,0.08)]">
+        <div className="mb-5 sm:mb-8 rounded-2xl border border-slate-200 bg-white p-3 sm:p-4 md:p-4 shadow-[0_10px_30px_rgba(15,23,42,0.08)]">
           <div className="flex flex-col gap-2 sm:gap-3 md:flex-row md:items-center">
             <div className="shrink-0 rounded-xl bg-slate-50 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm md:text-base font-semibold text-slate-700 border border-slate-200">
               Our Target
@@ -221,37 +149,62 @@ function Landing() {
             </div>
           </div>
 
-          <div className="-mx-1 mt-2 flex snap-x snap-mandatory gap-2 overflow-x-auto px-1 pb-1 md:mx-0 md:grid md:grid-cols-3 md:gap-2 md:overflow-visible md:px-0 md:pb-0">
-            {audienceCards.map((card) => (
-              <article
-                key={card.key}
-                className={`group relative min-w-[240px] snap-start overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-br ${card.tone} p-3 sm:p-4 md:min-w-0 md:p-4 transition duration-300 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-md`}
-              >
-                <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-white/50 blur-2xl transition group-hover:scale-125" />
+          <div className="mt-4 rounded-2xl border border-slate-200 bg-slate-100/70 p-4 sm:p-5">
+            <h3 className="text-2xl font-bold tracking-tight text-slate-800">Strategic Advantages</h3>
+            <p className="mt-2 text-sm text-slate-600">
+              A dual-sided ecosystem designed to curate value for both ends of the marketplace.
+            </p>
 
-                <div className="relative">
-                  <div className="mb-3 flex items-center justify-between">
-                    <span className="inline-flex items-center rounded-full border border-slate-300/70 bg-white/70 px-2.5 py-1 text-[10px] font-semibold tracking-[0.16em] text-slate-600">
-                      {card.icon}
-                    </span>
+            <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-[1.4fr_1fr]">
+              <article className="overflow-hidden rounded-2xl bg-slate-900 text-white">
+                <div className="grid grid-cols-1 sm:grid-cols-[1fr_170px]">
+                  <div className="p-5 sm:p-6">
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-orange">For sellers and partners</p>
+                    <h4 className="mt-3 text-3xl font-bold leading-tight">Scale Your Enterprise</h4>
 
-                    <div className="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-slate-900 text-xs font-bold text-white shadow-sm">
-                      {card.badge}
-                    </div>
+                    <ul className="mt-4 space-y-2.5 text-sm text-slate-100">
+                      <li className="flex items-center gap-2.5">
+                        <span className="inline-flex h-4 w-4 items-center justify-center rounded-full border border-orange text-[10px] text-orange">✓</span>
+                        Direct Access to High-Intent Corporate Buyers
+                      </li>
+                      <li className="flex items-center gap-2.5">
+                        <span className="inline-flex h-4 w-4 items-center justify-center rounded-full border border-orange text-[10px] text-orange">✓</span>
+                        Automated Loyalty and Reward Infrastructure
+                      </li>
+                      <li className="flex items-center gap-2.5">
+                        <span className="inline-flex h-4 w-4 items-center justify-center rounded-full border border-orange text-[10px] text-orange">✓</span>
+                        Real-time Market Insights and Analytics
+                      </li>
+                    </ul>
+
+                    <button className="mt-5 rounded-lg bg-orange px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#ab6015]">
+                      Partner with Us
+                    </button>
                   </div>
 
-                  <h3 className="text-sm font-semibold uppercase tracking-[0.12em] text-slate-700">{card.title}</h3>
-                  <p className="mt-1.5 text-sm sm:text-base font-semibold leading-snug text-slate-900">{card.highlight}</p>
-
-                  <div className="mt-3 flex items-center justify-between border-t border-slate-200/70 pt-2.5">
-                    <p className="text-[11px] sm:text-xs font-medium text-slate-600">{card.metric}</p>
-                    <span className="text-sm font-semibold text-slate-400 transition group-hover:translate-x-0.5 group-hover:text-slate-600">
-                      {'>'}
-                    </span>
-                  </div>
+                  <div className="hidden bg-gradient-to-br from-[#114044] to-[#0f3034] sm:block" />
                 </div>
               </article>
-            ))}
+
+              <article className="rounded-2xl bg-[#e7edf5] p-5 sm:p-6">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-orange">For customers</p>
+                <h4 className="mt-3 text-3xl font-bold leading-tight text-slate-800">Curated Rewards</h4>
+                <p className="mt-3 text-sm leading-6 text-slate-600">
+                  Unlock exclusive institutional-grade discounts and earn ServeSmile points with every interaction.
+                </p>
+
+                <div className="mt-5 space-y-2.5">
+                  <button className="flex w-full items-center justify-between rounded-lg bg-white px-4 py-2.5 text-left text-sm font-semibold text-slate-700 transition hover:bg-slate-50">
+                    Discount Centre
+                    <span className="text-orange">&gt;</span>
+                  </button>
+                  <button className="flex w-full items-center justify-between rounded-lg bg-white px-4 py-2.5 text-left text-sm font-semibold text-slate-700 transition hover:bg-slate-50">
+                    Premium Membership
+                    <span className="text-orange">&gt;</span>
+                  </button>
+                </div>
+              </article>
+            </div>
           </div>
         </div>
 
@@ -265,7 +218,7 @@ function Landing() {
           <p className="mt-1.5 sm:mt-2 text-xs sm:text-sm md:text-base text-slate-500">Save More - Grow More - Get More Income</p>
         </div>
 
-        <div className="-mx-1 flex gap-2 overflow-x-auto rounded-xl border border-slate-200 bg-white/90 p-1.5 px-1 pb-1 md:mx-0 md:grid md:grid-cols-3 md:gap-2 md:overflow-visible md:px-1.5 md:pb-1.5">
+        <div className="grid grid-cols-1 gap-2 rounded-xl border border-slate-200 bg-white/90 p-2 sm:grid-cols-3">
           {Object.entries(benefitSections).map(([key, section]) => {
             const isActive = activeSection === key
 
@@ -274,7 +227,7 @@ function Landing() {
                 key={key}
                 type="button"
                 onClick={() => setActiveSection(key)}
-                className={`min-w-[152px] whitespace-nowrap rounded-lg border px-3 py-2 text-center text-xs sm:text-xs md:min-w-0 md:text-sm font-semibold tracking-normal transition ${
+                className={`rounded-lg border px-3 py-2.5 text-center text-sm font-semibold tracking-normal transition ${
                   isActive
                     ? 'border-slate-900 bg-slate-900 text-white shadow-[0_6px_16px_rgba(15,23,42,0.28)]'
                     : 'border-transparent bg-white text-slate-600 hover:border-slate-200 hover:bg-slate-50'
@@ -288,7 +241,7 @@ function Landing() {
 
         <div className="mt-3 sm:mt-4 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_12px_30px_rgba(15,23,42,0.08)]">
           <div className="grid gap-0 grid-cols-1 md:grid-cols-[1.15fr_0.85fr]">
-            <div className="p-3 sm:p-4 md:p-6 bg-white">
+            <div className="bg-white p-4 sm:p-5 md:p-6">
               <div className="inline-flex rounded-lg border border-emerald-200 bg-emerald-50 px-2.5 py-0.5 sm:px-3 sm:py-1 text-xs font-semibold tracking-wide text-emerald-700">
                 {activeData.chip}
               </div>
@@ -301,9 +254,9 @@ function Landing() {
                 {activeData.summary}
               </p>
 
-              <div className="mt-3 sm:mt-4 grid gap-2 sm:gap-2.5 grid-cols-1 md:grid-cols-2">
+              <div className="mt-3 sm:mt-4 grid grid-cols-1 gap-2.5 md:grid-cols-2">
                 {visiblePoints.map((point, index) => (
-                  <div key={point} className="group relative rounded-xl border border-slate-200 bg-white p-2.5 sm:p-3 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-md cursor-default">
+                  <div key={point} className="group relative rounded-xl border border-slate-200 bg-white p-3 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-md cursor-default">
                     <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-slate-50 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                     <div className="relative flex items-start gap-2 sm:gap-3">
                       <div className="inline-flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-lg bg-slate-900 text-xs font-bold text-white flex-shrink-0 group-hover:bg-orange transition-colors duration-300">
@@ -327,17 +280,17 @@ function Landing() {
                 </button>
               ) : null}
 
-              <div className="mt-3 sm:mt-3 flex flex-col sm:flex-row flex-wrap gap-1.5 sm:gap-2">
-                <button className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 sm:py-2 text-xs font-semibold text-slate-700 transition hover:bg-slate-50">
+              <div className="mt-3 flex flex-col gap-2 sm:mt-3 sm:flex-row sm:flex-wrap sm:gap-2">
+                <button className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700 transition hover:bg-slate-50 sm:w-auto">
                   {activeData.primaryCta}
                 </button>
-                <button className="rounded-lg bg-dark-blue px-3 py-1.5 sm:py-2 text-xs font-semibold text-white transition hover:bg-navy-blue">
+                <button className="w-full rounded-lg bg-dark-blue px-3 py-2 text-xs font-semibold text-white transition hover:bg-navy-blue sm:w-auto">
                   {activeData.secondaryCta}
                 </button>
               </div>
             </div>
 
-            <div className="border-t border-slate-200 bg-slate-900 p-3 sm:p-4 text-white md:border-l md:border-t-0 md:p-6">
+            <div className="border-t border-slate-200 bg-slate-900 p-4 sm:p-5 text-white md:border-l md:border-t-0 md:p-6">
               <h4 className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-300">Key Outcomes</h4>
 
               <ul className="mt-2 sm:mt-3 space-y-1 sm:space-y-1.5 text-xs sm:text-sm text-slate-100">
@@ -358,7 +311,7 @@ function Landing() {
                 ))}
               </div>
 
-              <button className="mt-3 sm:mt-3 w-full rounded-lg bg-orange px-3 py-1.5 sm:py-2 text-xs font-semibold text-white transition hover:bg-[#b6691f]">
+              <button className="mt-3 w-full rounded-lg bg-orange px-3 py-2 text-xs font-semibold text-white transition hover:bg-[#b6691f]">
                 {activeData.registerCta}
               </button>
               <p className="mt-1 text-center text-[11px] text-slate-300">No setup fee. Start in minutes.</p>
@@ -369,7 +322,7 @@ function Landing() {
 
       <footer className="border-t border-slate-200 bg-slate-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-10 py-8 sm:py-10">
-          <div className="overflow-hidden rounded-[2rem] bg-gradient-to-r from-slate-900 via-[#102a42] to-[#16384c] px-5 py-9 sm:px-10 sm:py-12 text-center text-white shadow-[0_16px_30px_rgba(15,23,42,0.2)]">
+          <div className="overflow-hidden rounded-[2rem] bg-gradient-to-r from-slate-900 via-[#102a42] to-[#16384c] px-5 py-9 text-center text-white shadow-[0_16px_30px_rgba(15,23,42,0.2)] sm:px-10 sm:py-12">
             <div className="pointer-events-none mx-auto mb-3 h-1 w-20 rounded-full bg-gradient-to-r from-emerald-400 to-orange" />
             <h2 className="mx-auto max-w-2xl text-2xl sm:text-4xl font-bold leading-tight">
               Ready to curate your professional future?
@@ -379,10 +332,10 @@ function Landing() {
             </p>
 
             <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:mt-8 sm:flex-row sm:gap-4">
-              <button className="w-full max-w-[320px] rounded-lg bg-orange px-6 py-3 text-sm sm:text-base font-semibold text-white transition hover:bg-[#a85f13]">
+              <button className="w-full max-w-[320px] rounded-lg bg-orange px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#a85f13] sm:text-base">
                 Create Business Account
               </button>
-              <button className="w-full max-w-[320px] rounded-lg border border-emerald-300/40 bg-transparent px-6 py-3 text-sm sm:text-base font-semibold text-emerald-100 transition hover:bg-emerald-500/10">
+              <button className="w-full max-w-[320px] rounded-lg border border-emerald-300/40 bg-transparent px-6 py-3 text-sm font-semibold text-emerald-100 transition hover:bg-emerald-500/10 sm:text-base">
                 Contact Our Team
               </button>
             </div>
@@ -390,7 +343,11 @@ function Landing() {
 
           <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
             <div>
-              <h3 className="text-xl font-semibold text-slate-900">ServeSmile</h3>
+              <img
+                src="/servesmilelogolatestnew3.png"
+                alt="ServeSmile"
+                className="h-10 w-auto"
+              />
               <p className="mt-3 max-w-[230px] text-sm leading-6 text-slate-500">
                 The premier architectural trade curation platform.
               </p>
