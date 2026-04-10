@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import MuskaanTermsAndConditions from './MuskaanTermsAndConditions'
 import MuskaanFAQ from './MuskaanFAQ'
 import MuskaanHowItWorks from './MuskaanHowItWorks'
@@ -7,6 +8,42 @@ import MuskaanBenefits from './MuskaanBenefits'
 
 function MuskaanDiscountCard() {
   const muskaanCardImage = 'https://servesmile.in/siteImages/discountcardmuskanfront.png'
+  const [signupMode, setSignupMode] = useState('phone')
+  const [showPassword, setShowPassword] = useState(false)
+  const [acceptedTerms, setAcceptedTerms] = useState(false)
+  const [formValues, setFormValues] = useState({
+    fullName: '',
+    email: '',
+    phone: '',
+    password: '',
+    state: '',
+  })
+
+  const states = [
+    'Delhi',
+    'Gurugram',
+    'Haryana',
+    'Uttar Pradesh',
+    'Rajasthan',
+    'Punjab',
+    'Maharashtra',
+    'Karnataka',
+    'Tamil Nadu',
+    'West Bengal',
+  ]
+
+  const updateField = (event) => {
+    const { name, value } = event.target
+    setFormValues((prev) => ({ ...prev, [name]: value }))
+  }
+
+  const handleApplySubmit = (event) => {
+    event.preventDefault()
+    if (!acceptedTerms) {
+      return
+    }
+  }
+
   const prerequisites = [
     'Valid Government ID (Aadhar/Voter ID)',
     'Passport size digital photograph',
@@ -72,16 +109,6 @@ function MuskaanDiscountCard() {
 
       <MuskaanBenefits />
 
-      <MuskaanServices />
-
-      <MuskaanHowItWorks />
-
-      <MuskaanTermsAndConditions />
-
-      <MuskaanFAQ />
-
-      <MuskaanHowToApply />
-
       <section id="apply-now" className="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 overflow-hidden rounded-[2rem] bg-[#15283a] shadow-[0_24px_60px_rgba(15,23,42,0.12)] lg:grid-cols-[1fr_0.92fr]">
           <div className="px-5 py-7 text-white sm:px-8 sm:py-10 lg:px-10 lg:py-12">
@@ -109,58 +136,145 @@ function MuskaanDiscountCard() {
             <div className="rounded-[1.5rem] bg-white px-5 py-6 shadow-[0_18px_40px_rgba(15,23,42,0.18)] sm:px-7 sm:py-8">
               <h3 className="text-2xl font-bold text-slate-800">Start Your Application</h3>
 
-              <form className="mt-6 space-y-5">
+              <form className="mt-6 space-y-5" onSubmit={handleApplySubmit}>
+                <div className="grid grid-cols-2 gap-2 rounded-xl border border-slate-200 bg-slate-50 p-1">
+                  <button
+                    type="button"
+                    onClick={() => setSignupMode('email')}
+                    className={`rounded-lg px-3 py-2 text-xs font-semibold uppercase tracking-[0.08em] transition sm:text-sm ${
+                      signupMode === 'email' ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-500 hover:text-slate-700'
+                    }`}
+                  >
+                    With Email
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setSignupMode('phone')}
+                    className={`rounded-lg px-3 py-2 text-xs font-semibold uppercase tracking-[0.08em] transition sm:text-sm ${
+                      signupMode === 'phone' ? 'bg-dark-blue text-white shadow-sm' : 'text-slate-500 hover:text-slate-700'
+                    }`}
+                  >
+                    With Phone
+                  </button>
+                </div>
+
                 <label className="block">
                   <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate-500">Full Legal Name</span>
                   <input
                     type="text"
                     placeholder="Enter your full name"
+                    name="fullName"
+                    value={formValues.fullName}
+                    onChange={updateField}
                     className="mt-2 w-full rounded-lg border-0 bg-[#eef4ff] px-4 py-3 text-sm text-slate-700 outline-none ring-1 ring-transparent transition placeholder:text-slate-400 focus:ring-2 focus:ring-orange/40"
                   />
                 </label>
 
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                {signupMode === 'phone' ? (
                   <label className="block">
-                    <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate-500">Phone Number</span>
+                    <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate-500">Contact Number</span>
                     <input
                       type="tel"
-                      placeholder="+91"
+                      placeholder="Enter phone number"
+                      name="phone"
+                      value={formValues.phone}
+                      onChange={updateField}
                       className="mt-2 w-full rounded-lg border-0 bg-[#eef4ff] px-4 py-3 text-sm text-slate-700 outline-none ring-1 ring-transparent transition placeholder:text-slate-400 focus:ring-2 focus:ring-orange/40"
                     />
                   </label>
-
+                ) : (
                   <label className="block">
-                    <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate-500">Date of Birth</span>
+                    <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate-500">Email Address</span>
                     <input
-                      type="text"
-                      placeholder="mm/dd/yyyy"
+                      type="email"
+                      placeholder="name@example.com"
+                      name="email"
+                      value={formValues.email}
+                      onChange={updateField}
                       className="mt-2 w-full rounded-lg border-0 bg-[#eef4ff] px-4 py-3 text-sm text-slate-700 outline-none ring-1 ring-transparent transition placeholder:text-slate-400 focus:ring-2 focus:ring-orange/40"
                     />
                   </label>
-                </div>
+                )}
 
                 <label className="block">
-                  <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate-500">Email Address</span>
+                  <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate-500">Password</span>
+                  <div className="mt-2 flex items-center overflow-hidden rounded-lg bg-[#eef4ff] ring-1 ring-transparent transition focus-within:ring-2 focus-within:ring-orange/40">
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      placeholder="Enter password"
+                      name="password"
+                      value={formValues.password}
+                      onChange={updateField}
+                      className="w-full border-0 bg-transparent px-4 py-3 text-sm text-slate-700 outline-none placeholder:text-slate-400"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword((prev) => !prev)}
+                      className="border-l border-slate-300 px-4 py-3 text-xs font-semibold text-slate-500 transition hover:text-slate-700"
+                    >
+                      {showPassword ? 'Hide' : 'Show'}
+                    </button>
+                  </div>
+                </label>
+
+                <label className="block">
+                  <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate-500">State</span>
+                  <select
+                    name="state"
+                    value={formValues.state}
+                    onChange={updateField}
+                    className="mt-2 w-full rounded-lg border-0 bg-[#eef4ff] px-4 py-3 text-sm text-slate-700 outline-none ring-1 ring-transparent transition focus:ring-2 focus:ring-orange/40"
+                  >
+                    <option value="">Select State</option>
+                    {states.map((stateName) => (
+                      <option key={stateName} value={stateName}>{stateName}</option>
+                    ))}
+                  </select>
+                </label>
+
+                <label className="flex items-center gap-3 text-sm text-slate-600">
                   <input
-                    type="email"
-                    placeholder="name@example.com"
-                    className="mt-2 w-full rounded-lg border-0 bg-[#eef4ff] px-4 py-3 text-sm text-slate-700 outline-none ring-1 ring-transparent transition placeholder:text-slate-400 focus:ring-2 focus:ring-orange/40"
+                    type="checkbox"
+                    checked={acceptedTerms}
+                    onChange={(event) => setAcceptedTerms(event.target.checked)}
+                    className="h-4 w-4 rounded border-slate-300 text-orange focus:ring-orange/40"
                   />
+                  <span>
+                    I agree with the company&apos;s
+                    {' '}
+                    <a href="#terms" className="font-semibold text-orange hover:underline">terms and conditions</a>
+                  </span>
                 </label>
 
                 <button
-                  type="button"
-                  className="w-full rounded-lg bg-[#b36400] px-6 py-3.5 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(179,100,0,0.25)] transition hover:bg-[#9f5900]"
+                  type="submit"
+                  disabled={!acceptedTerms}
+                  className="w-full rounded-lg bg-[#b36400] px-6 py-3.5 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(179,100,0,0.25)] transition hover:bg-[#9f5900] disabled:cursor-not-allowed disabled:opacity-50"
                 >
-                  Submit & Pay ₹250
+                  {signupMode === 'phone' ? 'Signup with Phone' : 'Signup with Email'}
                 </button>
 
                 <p className="text-center text-xs text-slate-400">Secure SSL Encrypted Payment Process</p>
+                <p className="text-center text-sm font-medium text-slate-500">
+                  Already registered?
+                  {' '}
+                  <a href="#" className="text-orange hover:underline">Click here</a>
+                </p>
               </form>
             </div>
           </div>
         </div>
       </section>
+
+      <MuskaanServices />
+
+      <MuskaanHowItWorks />
+
+      <MuskaanTermsAndConditions />
+
+      <MuskaanFAQ />
+
+      <MuskaanHowToApply />
 
       <footer className="mt-8 border-t border-slate-200 bg-slate-50">
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10 md:px-10">
