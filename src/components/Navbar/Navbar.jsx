@@ -10,13 +10,13 @@ const companyLinks = [
 ]
 
 const discountCardLinks = [
-  { label: 'Muskaan Discount Card', href: '/muskaan-discount-card' },
-  { label: 'Card Benefits', href: '#benefits' },
-  { label: 'Card Services', href: '#services' },
-  { label: 'How it works ?', href: '#how-it-works' },
-  { label: 'Terms and Conditions', href: '#terms' },
-  { label: 'FAQ', href: '#faq' },
-  { label: 'How to Apply', href: '#how-to-apply' },
+  { label: 'Muskaan Discount Card', href: '/muskaan-discount-card#muskan-discount-card' },
+  { label: 'Card Benefits', href: '/muskaan-discount-card#benefits' },
+  { label: 'Card Services', href: '/muskaan-discount-card#services' },
+  { label: 'How it works ?', href: '/muskaan-discount-card#how-it-works' },
+  { label: 'Terms and Conditions', href: '/muskaan-discount-card#terms' },
+  { label: 'FAQ', href: '/muskaan-discount-card#faq' },
+  { label: 'How to Apply', href: '/muskaan-discount-card#how-to-apply' },
 ]
 
 const discountCentreLinks = [
@@ -103,14 +103,14 @@ function Navbar() {
           </li>
 
           <li className="group relative py-3">
-            <Link to="/muskaan-discount-card" className="text-sm font-medium text-gray-600 transition hover:text-orange">
+            <Link to="/muskaan-discount-card#muskan-discount-card" className="text-sm font-medium text-gray-600 transition hover:text-orange">
               Discount Card
             </Link>
             <DropdownCard
               title="Discount Card"
               items={discountCardLinks}
               actionLabel="Apply Now"
-              actionHref="#apply-now"
+              actionHref="/muskaan-discount-card#apply-now"
             />
           </li>
 
@@ -152,7 +152,7 @@ function Navbar() {
           <div className="flex flex-col">
             <a href="#company" className="px-4 py-3 text-sm font-medium text-gray-600 border-b border-slate-100 active:bg-slate-50">Company</a>
             <a href="#trade" className="px-4 py-3 text-sm font-medium text-gray-600 border-b border-slate-100 active:bg-slate-50">Global Trade</a>
-            <Link to="/muskaan-discount-card" className="px-4 py-3 text-sm font-medium text-gray-600 border-b border-slate-100 active:bg-slate-50">Discount Card</Link>
+            <Link to="/muskaan-discount-card#muskan-discount-card" className="px-4 py-3 text-sm font-medium text-gray-600 border-b border-slate-100 active:bg-slate-50">Discount Card</Link>
             <a href="#discount-centre" className="px-4 py-3 text-sm font-medium text-gray-600 border-b border-slate-100 active:bg-slate-50">Discount Centre</a>
             <a href="#career" className="px-4 py-3 text-sm font-medium text-gray-600 border-b border-slate-100 active:bg-slate-50">Career</a>
             <div className="flex flex-col gap-2 p-3">

@@ -1,78 +1,23 @@
+import MuskaanTermsAndConditions from './MuskaanTermsAndConditions'
+import MuskaanFAQ from './MuskaanFAQ'
+import MuskaanHowItWorks from './MuskaanHowItWorks'
+import MuskaanServices from './MuskaanServices'
+import MuskaanHowToApply from './MuskaanHowToApply'
+import MuskaanBenefits from './MuskaanBenefits'
+
+const muskaanSectionLinks = [
+  { label: 'MUSKAN DISCOUNT CARD', href: '#muskan-discount-card' },
+  { label: 'CARD BENEFITS', href: '#benefits' },
+  { label: 'CARD SERVICES', href: '#services' },
+  { label: 'HOW IT WORKS ?', href: '#how-it-works' },
+  { label: 'TERMS & CONDITIONS', href: '#terms' },
+  { label: 'FAQ', href: '#faq' },
+  { label: 'HOW TO APPLY ?', href: '#how-to-apply' },
+  { label: 'APPLY NOW', href: '#apply-now' },
+]
+
 function MuskaanDiscountCard() {
   const muskaanCardImage = 'https://servesmile.in/siteImages/discountcardmuskanfront.png'
-
-  const benefits = [
-    {
-      icon: 'cart',
-      title: 'Shopping Rewards',
-      description: 'Great discounts on offline and online shopping across our partner network.',
-    },
-    {
-      icon: 'wallet',
-      title: 'Open Limit',
-      description: 'Enjoy an open-limit policy designed for your comfort and ease of trade.',
-    },
-    {
-      icon: 'trend',
-      title: 'Custom Validity',
-      description: 'Flexible validity periods tailored to your specific membership profile.',
-    },
-    {
-      icon: 'shield',
-      title: 'Global Access',
-      description: 'Use it anytime and anywhere in the world across our exclusive network.',
-    },
-    {
-      icon: 'star',
-      title: 'Multi-Transactions',
-      description: 'Multiple discount transactions on a single card for personal and business needs.',
-    },
-    {
-      icon: 'shield-check',
-      title: 'Digital Perks',
-      description: 'Exclusive online pricing and premium service offers from trusted providers.',
-    },
-  ]
-
-  const benefitIcons = {
-    cart: (
-      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M3 4h2l2.4 10.2a1.5 1.5 0 0 0 1.47 1.18h7.78a1.5 1.5 0 0 0 1.45-1.11L20 8H6.2" />
-        <circle cx="10" cy="20" r="1" fill="currentColor" stroke="none" />
-        <circle cx="17" cy="20" r="1" fill="currentColor" stroke="none" />
-      </svg>
-    ),
-    wallet: (
-      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5V17a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7.5Z" />
-        <path d="M15 11h5v4h-5a2 2 0 0 1 0-4Z" />
-        <circle cx="16.8" cy="13" r="0.8" fill="currentColor" stroke="none" />
-      </svg>
-    ),
-    trend: (
-      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M4 16l5-5 4 4 7-7" />
-        <path d="M16 8h4v4" />
-      </svg>
-    ),
-    shield: (
-      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 3 19 6v5c0 4.5-2.9 8.3-7 10-4.1-1.7-7-5.5-7-10V6l7-3Z" />
-      </svg>
-    ),
-    star: (
-      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
-        <path d="m12 4 2.8 5.6 6.2.9-4.5 4.4 1.1 6.1L12 18l-5.6 3 1.1-6.1L3 10.5l6.2-.9L12 4Z" />
-      </svg>
-    ),
-    'shield-check': (
-      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 3 19 6v5c0 4.5-2.9 8.3-7 10-4.1-1.7-7-5.5-7-10V6l7-3Z" />
-        <path d="m9.5 12 1.9 1.9L15.5 10" />
-      </svg>
-    ),
-  }
-
   const prerequisites = [
     'Valid Government ID (Aadhar/Voter ID)',
     'Passport size digital photograph',
@@ -82,7 +27,7 @@ function MuskaanDiscountCard() {
 
   return (
     <main className="min-h-screen bg-[#f6f7fb] pb-14">
-      <section className="relative overflow-hidden px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
+      <section id="muskan-discount-card" className="relative overflow-hidden px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
         <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 rounded-[2rem] bg-[#f7f8fc] px-4 py-6 shadow-[0_30px_80px_rgba(15,23,42,0.08)] ring-1 ring-slate-200/70 sm:px-6 sm:py-8 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:py-10">
           <div className="max-w-2xl">
             <div className="inline-flex rounded-full bg-orange/15 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.16em] text-[#8d4f08]">
@@ -136,37 +81,36 @@ function MuskaanDiscountCard() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mt-4 rounded-[2rem] bg-[#eef4fb] px-4 py-5 sm:px-5 sm:py-6 lg:px-6">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-orange">Exclusive Privilege</p>
-              <h2 className="mt-2 text-2xl font-bold text-slate-800 sm:text-3xl">Muskan Card Benefits</h2>
-            </div>
-            <p className="max-w-xl text-sm leading-6 text-slate-500">
-              Clean, premium access to member rewards, savings, and a modern card experience.
-            </p>
-          </div>
-
-          <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {benefits.map((benefit) => (
-              <article
-                key={benefit.title}
-                className="rounded-[0.4rem] border border-slate-100 bg-white p-5 shadow-[0_8px_22px_rgba(15,23,42,0.04)] transition hover:-translate-y-0.5 hover:shadow-[0_14px_28px_rgba(15,23,42,0.08)]"
-                style={{ boxShadow: 'inset 3px 0 0 #ff8a00, 0 8px 22px rgba(15,23,42,0.04)' }}
+      <section className="mx-auto max-w-7xl px-4 pt-2 sm:px-6 lg:px-8">
+        <div className="rounded-[2rem] border border-orange/20 bg-[#fde3c7] px-5 py-5 shadow-[0_14px_30px_rgba(15,23,42,0.06)] sm:px-6 sm:py-6">
+          <div className="grid grid-cols-1 gap-3">
+            {muskaanSectionLinks.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                className="inline-flex items-center gap-3 text-left text-[1.02rem] font-extrabold uppercase tracking-[0.02em] text-[#1f6b3c] transition hover:text-[#14532d]"
               >
-                <div className="flex h-9 w-9 items-center justify-center rounded-md bg-[#fff3e7] text-[#a85d00]">
-                  {benefitIcons[benefit.icon]}
-                </div>
-                <p className="mt-4 text-lg font-bold text-slate-700">{benefit.title}</p>
-                <p className="mt-3 max-w-sm text-sm leading-6 text-slate-500">{benefit.description}</p>
-              </article>
+                <span className="text-[1.15rem] leading-none">➜</span>
+                <span>{item.label}</span>
+              </a>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
+      <MuskaanBenefits />
+
+      <MuskaanServices />
+
+      <MuskaanHowItWorks />
+
+      <MuskaanTermsAndConditions />
+
+      <MuskaanFAQ />
+
+      <MuskaanHowToApply />
+
+      <section id="apply-now" className="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 overflow-hidden rounded-[2rem] bg-[#15283a] shadow-[0_24px_60px_rgba(15,23,42,0.12)] lg:grid-cols-[1fr_0.92fr]">
           <div className="px-5 py-7 text-white sm:px-8 sm:py-10 lg:px-10 lg:py-12">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Apply for Muskan Card</h2>
