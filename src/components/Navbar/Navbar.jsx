@@ -10,7 +10,7 @@ const companyLinks = [
 ]
 
 const discountCardLinks = [
-  { label: 'Muskaan Discount Card', href: '#muskaan' },
+  { label: 'Muskaan Discount Card', href: '/muskaan-discount-card' },
   { label: 'Card Benefits', href: '#benefits' },
   { label: 'Card Services', href: '#services' },
   { label: 'How it works ?', href: '#how-it-works' },
@@ -38,13 +38,23 @@ function DropdownCard({ title, items, actionLabel, actionHref = '#' }) {
 
         <div className="space-y-1">
           {items.map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              className="block rounded-md px-3 py-2 text-sm font-medium text-gray-600 transition hover:bg-slate-100 hover:text-dark-blue"
-            >
-              {item.label}
-            </a>
+            item.href.startsWith('/') ? (
+              <Link
+                key={item.label}
+                to={item.href}
+                className="block rounded-md px-3 py-2 text-sm font-medium text-gray-600 transition hover:bg-slate-100 hover:text-dark-blue"
+              >
+                {item.label}
+              </Link>
+            ) : (
+              <a
+                key={item.label}
+                href={item.href}
+                className="block rounded-md px-3 py-2 text-sm font-medium text-gray-600 transition hover:bg-slate-100 hover:text-dark-blue"
+              >
+                {item.label}
+              </a>
+            )
           ))}
         </div>
 
@@ -93,9 +103,9 @@ function Navbar() {
           </li>
 
           <li className="group relative py-3">
-            <button className="text-sm font-medium text-gray-600 transition hover:text-orange">
+            <Link to="/muskaan-discount-card" className="text-sm font-medium text-gray-600 transition hover:text-orange">
               Discount Card
-            </button>
+            </Link>
             <DropdownCard
               title="Discount Card"
               items={discountCardLinks}
@@ -142,7 +152,7 @@ function Navbar() {
           <div className="flex flex-col">
             <a href="#company" className="px-4 py-3 text-sm font-medium text-gray-600 border-b border-slate-100 active:bg-slate-50">Company</a>
             <a href="#trade" className="px-4 py-3 text-sm font-medium text-gray-600 border-b border-slate-100 active:bg-slate-50">Global Trade</a>
-            <a href="#discount-card" className="px-4 py-3 text-sm font-medium text-gray-600 border-b border-slate-100 active:bg-slate-50">Discount Card</a>
+            <Link to="/muskaan-discount-card" className="px-4 py-3 text-sm font-medium text-gray-600 border-b border-slate-100 active:bg-slate-50">Discount Card</Link>
             <a href="#discount-centre" className="px-4 py-3 text-sm font-medium text-gray-600 border-b border-slate-100 active:bg-slate-50">Discount Centre</a>
             <a href="#career" className="px-4 py-3 text-sm font-medium text-gray-600 border-b border-slate-100 active:bg-slate-50">Career</a>
             <div className="flex flex-col gap-2 p-3">

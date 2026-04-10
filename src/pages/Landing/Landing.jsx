@@ -85,15 +85,99 @@ const targetMetrics = [
 
 const loopingTargetMetrics = [...targetMetrics, ...targetMetrics]
 
+const latestInsights = [
+  {
+    category: 'Industry Trends',
+    readTime: '5 min read',
+    title: 'The Convergence of Architecture and Trade Dynamics',
+    summary: 'How modern architectural principles are being applied to streamline global supply chains and trade networks...',
+    visual: 'from-[#0b1829] via-[#122744] to-[#0d2238]',
+  },
+  {
+    category: 'Technology',
+    readTime: '8 min read',
+    title: 'Next-Gen Loyalty: Beyond the Traditional Points System',
+    summary: 'Exploring the shift towards experiential rewards and community-driven loyalty programs in the B2B space...',
+    visual: 'from-[#0b1725] via-[#0f2238] to-[#0a1422]',
+  },
+  {
+    category: 'Enterprise',
+    readTime: '4 min read',
+    title: 'Building a Sustainable Business Ecosystem',
+    summary: 'Practical steps for enterprises to leverage circular economy principles through smart trade and procurement...',
+    visual: 'from-[#0f2239] via-[#243f60] to-[#142a43]',
+  },
+]
+
 function Landing() {
   const [activeSection, setActiveSection] = useState('discountCentre')
   const [showAllPoints, setShowAllPoints] = useState(false)
+  const [currentInsight, setCurrentInsight] = useState(0)
+  const [isCarouselAnimating, setIsCarouselAnimating] = useState(true)
   const activeData = benefitSections[activeSection]
   const visiblePoints = showAllPoints ? activeData.points : activeData.points.slice(0, 3)
+  const carouselInsights = [...latestInsights, ...latestInsights]
+  const activeInsightIndex = currentInsight % latestInsights.length
 
   useEffect(() => {
     setShowAllPoints(false)
   }, [activeSection])
+
+  useEffect(() => {
+    const carouselTimer = window.setInterval(() => {
+      setCurrentInsight((prev) => prev + 1)
+    }, 3000)
+
+    return () => {
+      window.clearInterval(carouselTimer)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (currentInsight >= latestInsights.length) {
+      setIsCarouselAnimating(false)
+      const resetTimer = window.setTimeout(() => {
+        setCurrentInsight(0)
+      }, 500)
+
+      return () => {
+        window.clearTimeout(resetTimer)
+      }
+    }
+
+    setIsCarouselAnimating(true)
+  }, [currentInsight])
+
+  useEffect(() => {
+    if (!isCarouselAnimating) {
+      const frame = window.requestAnimationFrame(() => {
+        setIsCarouselAnimating(true)
+      })
+
+      return () => {
+        window.cancelAnimationFrame(frame)
+      }
+    }
+  }, [isCarouselAnimating])
+
+  const showPreviousInsight = () => {
+    if (currentInsight === 0) {
+      setIsCarouselAnimating(false)
+      setCurrentInsight(latestInsights.length)
+
+      window.requestAnimationFrame(() => {
+        setIsCarouselAnimating(true)
+        setCurrentInsight(latestInsights.length - 1)
+      })
+      return
+    }
+
+    setCurrentInsight((prev) => prev - 1)
+  }
+
+  const showNextInsight = () => {
+    setCurrentInsight((prev) => prev + 1)
+  }
 
   return (
     <>
@@ -317,6 +401,78 @@ function Landing() {
               <p className="mt-1 text-center text-[11px] text-slate-300">No setup fee. Start in minutes.</p>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 md:px-10 pb-10 sm:pb-12">
+        <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <h2 className="text-3xl font-bold tracking-tight text-slate-800">Latest Insights</h2>
+            <p className="mt-2 text-sm text-slate-600">
+              Curated perspectives on trade, architecture, and business efficiency.
+            </p>
+          </div>
+          <div className="flex items-center gap-2 sm:gap-3">
+            <button
+              type="button"
+              onClick={showPreviousInsight}
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:text-slate-800"
+              aria-label="Previous article"
+            >
+              &larr;
+            </button>
+            <button
+              type="button"
+              onClick={showNextInsight}
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:text-slate-800"
+              aria-label="Next article"
+            >
+              &rarr;
+            </button>
+            <a href="#articles" className="ml-1 inline-flex items-center gap-2 text-sm font-semibold text-orange transition hover:text-[#a85f13]">
+              View All Articles
+              <span>&rarr;</span>
+            </a>
+          </div>
+        </div>
+
+        <div className="overflow-hidden">
+          <div
+            className={`flex ${isCarouselAnimating ? 'transition-transform duration-500 ease-in-out' : ''}`}
+            style={{ transform: `translateX(-${(currentInsight * 100) / 3}%)` }}
+          >
+            {carouselInsights.map((article, index) => (
+              <div key={`${article.title}-${index}`} className="w-full shrink-0 px-2 lg:w-1/3">
+                <article className="group rounded-2xl border border-slate-200 bg-white p-3 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+                  <div className={`relative h-44 overflow-hidden rounded-xl bg-gradient-to-br ${article.visual}`}>
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(16,185,129,0.18),transparent_55%)]" />
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_75%,rgba(249,115,22,0.18),transparent_55%)]" />
+                  </div>
+
+                  <div className="mt-3 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-orange">
+                    <span>{article.category}</span>
+                    <span className="text-slate-300">•</span>
+                    <span className="normal-case tracking-normal text-slate-500">{article.readTime}</span>
+                  </div>
+
+                  <h3 className="mt-2 text-2xl font-bold leading-tight text-slate-800">{article.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-500">{article.summary}</p>
+                </article>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-3 flex items-center justify-center gap-2">
+          {latestInsights.map((article, index) => (
+            <button
+              key={article.title}
+              type="button"
+              onClick={() => setCurrentInsight(index)}
+              className={`h-2.5 rounded-full transition ${index === activeInsightIndex ? 'w-6 bg-orange' : 'w-2.5 bg-slate-300 hover:bg-slate-400'}`}
+              aria-label={`Go to article ${index + 1}`}
+            />
+          ))}
         </div>
       </section>
 
