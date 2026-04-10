@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar/Navbar'
+import WhatsAppFloatingButton from './components/WhatsAppFloatingButton'
 import Landing from './pages/Landing/Landing'
 import MuskaanDiscountCard from './pages/MuskaanDiscountCard/MuskaanDiscountCard'
 
@@ -44,6 +45,7 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/muskaan-discount-card" element={<MuskaanDiscountCard />} />
       </Routes>
+      <WhatsAppFloatingButton />
     </Router>
   )
 }
