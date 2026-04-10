@@ -5,17 +5,6 @@ import MuskaanServices from './MuskaanServices'
 import MuskaanHowToApply from './MuskaanHowToApply'
 import MuskaanBenefits from './MuskaanBenefits'
 
-const muskaanSectionLinks = [
-  { label: 'MUSKAN DISCOUNT CARD', href: '#muskan-discount-card' },
-  { label: 'CARD BENEFITS', href: '#benefits' },
-  { label: 'CARD SERVICES', href: '#services' },
-  { label: 'HOW IT WORKS ?', href: '#how-it-works' },
-  { label: 'TERMS & CONDITIONS', href: '#terms' },
-  { label: 'FAQ', href: '#faq' },
-  { label: 'HOW TO APPLY ?', href: '#how-to-apply' },
-  { label: 'APPLY NOW', href: '#apply-now' },
-]
-
 function MuskaanDiscountCard() {
   const muskaanCardImage = 'https://servesmile.in/siteImages/discountcardmuskanfront.png'
   const prerequisites = [
@@ -77,23 +66,6 @@ function MuskaanDiscountCard() {
                 />
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-4 pt-2 sm:px-6 lg:px-8">
-        <div className="rounded-[2rem] border border-orange/20 bg-[#fde3c7] px-5 py-5 shadow-[0_14px_30px_rgba(15,23,42,0.06)] sm:px-6 sm:py-6">
-          <div className="grid grid-cols-1 gap-3">
-            {muskaanSectionLinks.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="inline-flex items-center gap-3 text-left text-[1.02rem] font-extrabold uppercase tracking-[0.02em] text-[#1f6b3c] transition hover:text-[#14532d]"
-              >
-                <span className="text-[1.15rem] leading-none">➜</span>
-                <span>{item.label}</span>
-              </a>
-            ))}
           </div>
         </div>
       </section>
